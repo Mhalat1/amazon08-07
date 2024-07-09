@@ -2,88 +2,41 @@
 
 {% block body %}
 
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Filtre</h5>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Categories
-                </button>
 
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	<div class="row ">
+		{% for article in articles %}
 
-                    <p>
-                        Catégories
-                    </p>
-                    {% for article in articles %}
-                        <table class="table table-sm">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <a class="dropdown-item" href="#">{{article.categorie}}
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    {% endfor %}
-                </ul>
+			<div class="col-md-3" name="{{article.categorie}}">
+				<div class="card">
+					<div class="col-md-12">
+						<img src={{article.image}} class="card-img-top" style="height: 200px;" alt="Article Image">
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">{{article.id}}</h5>
+						<h5 class="card-title">{{article.name}}</h5>
+						<span class="card-categorie">{{article.price}}</span>
+						<p class="card-text">{{article.description}}</p>
+						<a class="btn btn-danger" href="{{path('article_delet', {id:article.id})}}">
+							delete
+						</a>
+						<a class="btn btn-success btn-form" href="{{path('order_add_article', {id:article.id})}}">
+							Ajout panier
+						</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
 
-            </div>
-        </div>
-    </div>
-
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-                <div class="row">
-                    {% for article in articles %}
-
-                        <div class="col-md-3" name="{{article.categorie}}">
-                            <div class="card">
-                                <div class="col-md-12">
-                                    <img src={{article.image}} class="card-img-top" style="height: 200px;" alt="Article Image">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{article.name}}</h5>
-                                    <span class="card-categorie">{{article.price}}</span>
-                                    <p class="card-text">{{article.description}}</p>
-                                    <button class="btn btn-danger">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-
-                </div>
-                <li>
-                    <a href="http://127.0.0.1:8000/commercants">
-                        Lien page commercant
-                    </a>
-                    </li>
-                    <li>
-                    <a href="http://127.0.0.1:8000/articles/new">
-                        Lien ajout article
-                    </a>
-                </li>
-
-
-            </nav>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h2>Shopping Cart</h2>
-                        <ul class="list-group">
-                            <li class="list-group-item">Item 1</li>
-                            <li class="list-group-item">Item 2</li>
-                            <li class="list-group-item">Item 3</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+	</nav>
+	<li>
+		<a href="http://127.0.0.1:8000/articles/new">
+			Lien ajout article
+		</a>
+	</li>
+	<li>
+		<a href="http://127.0.0.1:8000/commandes">
+			Lien Panier
+		</a>
+	</li>
 
 {% endblock %}

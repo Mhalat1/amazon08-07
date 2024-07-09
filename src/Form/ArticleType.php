@@ -2,9 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Articles;
-use App\Entity\Commercants;
-use App\Entity\Visiteurs;
+use App\Entity\Article;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,7 +34,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Articles::class,
+            'data_class' => Article::class,
         ]);
     }
 }

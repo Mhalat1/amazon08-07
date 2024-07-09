@@ -1,20 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CommandesController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+			<div class="col-md-3" name="{{articles.categorie}}">
+				<div class="card">
+					<div class="col-md-12">
+						<img src={{articles.image}} class="card-img-top" style="height: 200px;" alt="Article Image">
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">{{articles.id}}</h5>
+						<h5 class="card-title">{{articles.name}}</h5>
+						<span class="card-categorie">{{articles.price}}</span>
+						<p class="card-text">{{articles.description}}</p>
+					</div>
+				</div>
+			</div>
+			<p>{{orders.id}}</p>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/halat/OneDrive/Desktop/amazon/src/Controller/CommandesController.php</code></li>
-        <li>Your template at <code>C:/Users/halat/OneDrive/Desktop/amazon/templates/commandes/index.html.twig</code></li>
-    </ul>
-</div>
+        <a href="http://127.0.0.1:8000/displaypanier">
+			Lien Panier
+		</a>
 {% endblock %}

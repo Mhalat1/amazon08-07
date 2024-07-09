@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Articles;
+use App\Entity\Article;
+use App\Entity\Order;
 use App\Form\ArticleType;
-use App\Repository\ArticlesRepository;
+use App\Repository\ArticleRepository;
 use Exception;
-use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ArticlesController extends AbstractController
 {
     #[Route('/articles', name: 'app_articles')]
-    public function list(ArticlesRepository $repo): Response
+    public function list(ArticleRepository $repo): Response
     {
         $articles = $repo->findAll();
         return $this->render('articles/index.html.twig', [
@@ -24,7 +24,7 @@ class ArticlesController extends AbstractController
         ]);
     }
     #[Route('/articles/category/{category}', name: 'app_articles_category')]
-    public function liste(ArticlesRepository $repo, string $category): Response
+    public function liste(ArticleRepository $repo, string $category): Response
     {
         $articles = $repo->findByCategorie($category);
         return $this->render('articles/index.html.twig', [
@@ -35,7 +35,7 @@ class ArticlesController extends AbstractController
     #[Route('/articles/new', name: 'article_new')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $article = new Articles();
+        $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
@@ -55,7 +55,7 @@ class ArticlesController extends AbstractController
     }
 
     #[Route('/articles/delet/{id}', name: 'article_delet')]
-    public function delet(Articles $article, EntityManagerInterface $entityManager): Response
+    public function delet(Article $article, EntityManagerInterface $entityManager): Response
     
     {
         try {
@@ -68,6 +68,15 @@ class ArticlesController extends AbstractController
         return $this->redirectToRoute('app_articles');
     }
 
+
+    #[Route('/articles/ajout/{id}', name: 'article_ajout')]
+    public function ajoutPanier(Article $article, EntityManagerInterface $entityManager): Response
+        
+    {
+        $entityManager->persist($article);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_articles');
+    }
 }
 
 
